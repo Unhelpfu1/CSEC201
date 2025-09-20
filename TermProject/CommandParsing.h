@@ -3,4 +3,4 @@
 #include <string.h>
 #include <stdlib.h>
 
-void parseInput(char*);
+void parseInput(char*, struct linkedList*);

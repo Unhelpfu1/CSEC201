@@ -2,6 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include "CommandParsing.h"
+#include "LinkedList.h"
 
 //Parse each individual command for errors
 void parseCommandUpload(char* secondToken, char* thirdToken) {
@@ -58,13 +59,13 @@ void parseCommandShow(char* secondToken, char* thirdToken) {
 		printf("  >> Syntax error: show [local/remote] [path/files/folders]\n");
 	}
 	else if (strcmp(secondToken, "local") == 0) {
-		if (strcmp(thirdToken, "path\n") == 0) {
+		if (strcmp(thirdToken, "path") == 0) {
 			printf("  >> Show local path command received\n");
 		}
-		else if (strcmp(thirdToken, "files\n") == 0) {
+		else if (strcmp(thirdToken, "files") == 0) {
 			printf("  >> Show local files command received\n");
 		}
-		else if (strcmp(thirdToken, "folders\n") == 0) {
+		else if (strcmp(thirdToken, "folders") == 0) {
 			printf("  >> Show local folders command received\n");
 		}
 		else {
@@ -72,13 +73,13 @@ void parseCommandShow(char* secondToken, char* thirdToken) {
 		}
 	}
 	else if (strcmp(secondToken, "remote") == 0) {
-		if (strcmp(thirdToken, "path\n") == 0) {
+		if (strcmp(thirdToken, "path") == 0) {
 			printf("  >> Show remote path command received\n");
 		}
-		else if (strcmp(thirdToken, "files\n") == 0) {
+		else if (strcmp(thirdToken, "files") == 0) {
 			printf("  >> Show remote files command received\n");
 		}
-		else if (strcmp(thirdToken, "folders\n") == 0) {
+		else if (strcmp(thirdToken, "folders") == 0) {
 			printf("  >> Show remote folders command received\n");
 		}
 		else {
@@ -90,12 +91,12 @@ void parseCommandShow(char* secondToken, char* thirdToken) {
 	}
 }
 
-void parseCommandHistory(char* secondToken, char* thirdToken) {
+void parseCommandHistory(char* secondToken, char* thirdToken, struct linkedList* history) {
 	if (secondToken != NULL || thirdToken != NULL) { // Too many arguments
 		printf("  >> Syntax error: \'history\' takes no parameters.\n");
 	}
 	else {
-		printf("  >> history command received\n");
+		printList(history);
 	}
 }
 
@@ -118,7 +119,7 @@ void parseCommandQuit(char* secondToken, char* thirdToken) {
 }
 
 // parsing
-void parseInput(char* userInput) {
+void parseInput(char* userInput, struct linkedList* history) {
 	const char delimiters[] = " \t\n\r";
 	char* firstToken = strtok(userInput, delimiters);
 	char* secondToken = strtok(NULL, delimiters);
@@ -158,7 +159,7 @@ void parseInput(char* userInput) {
 		}
 		else if ((strcmp(firstToken, "history") == 0) || (strcmp(firstToken, "history\n") == 0)) {
 
-			parseCommandHistory(secondToken, thirdToken);
+			parseCommandHistory(secondToken, thirdToken, history);
 
 		}
 		else if ((strcmp(firstToken, "validate") == 0) || (strcmp(firstToken, "validate\n") == 0)) {
