@@ -5,6 +5,7 @@
 struct node {
 	char command[100]; // nodes will store names of size 100 or less
 	struct node* next; //pointer to the next node in the list
+	unsigned char* hash; // Hash of the previous node
 };
 
 struct linkedList {
@@ -13,8 +14,12 @@ struct linkedList {
 };
 
 // Function prototype for the initialize function
-void initialize(struct linkedList* list);
+void initialize(struct linkedList*);
 
-void addItem(struct linkedList* list, char* input);
+void addItem(struct linkedList*, char*);
 
-void printList(struct linkedList* listToPrint); 
+void printList(struct linkedList*); 
+
+unsigned char* hashNode(struct node*);
+
+int validateList(struct linkedList*);
