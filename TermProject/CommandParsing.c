@@ -125,6 +125,15 @@ void parseInput(char* userInput, struct linkedList* history) {
 	char* secondToken = strtok(NULL, delimiters);
 	char* thirdToken = strtok(NULL, delimiters);
 	//printf(">> Command received: %s %s %s", firstToken, secondToken, thirdToken); // DEBUG
+	if (firstToken == NULL) {
+		firstToken = "";
+	}
+	//if (secondToken == NULL) {
+	//	secondToken = "";
+	//}
+	//if (thirdToken == NULL) {
+	//	thirdToken = "";
+	//}
 	if (strtok(NULL, " ") != NULL) {
 
 		printf("  >> Syntax error: Too many arguments\n");
