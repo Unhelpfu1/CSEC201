@@ -24,9 +24,9 @@ void main(void) {
 		strcpy(inputCopy, userInput);
 
 		
-		//if (strcmp(userInput, "linkedList test\n") == 0) { // Hashing validation test DEBUG
-		//	commandHistory->head->next->next->next->hash[0] = 'Z';
-		//}
+		if (strcmp(userInput, "linkedList test\n") == 0) { // Hashing validation test DEBUG
+			commandHistory->head->next->next->next->hash[0] = 'Z';
+		}
 		
 		
 		// send input to parse

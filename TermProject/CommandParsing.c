@@ -128,12 +128,6 @@ void parseInput(char* userInput, struct linkedList* history) {
 	if (firstToken == NULL) {
 		firstToken = "";
 	}
-	//if (secondToken == NULL) {
-	//	secondToken = "";
-	//}
-	//if (thirdToken == NULL) {
-	//	thirdToken = "";
-	//}
 	if (strtok(NULL, " ") != NULL) {
 
 		printf("  >> Syntax error: Too many arguments\n");

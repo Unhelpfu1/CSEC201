@@ -59,8 +59,32 @@ void printList(struct linkedList* listToPrint) {
 	}
 	printf(" >> NULL\n");
 
-	printf(" >> Validation: %i\n", validateList(listToPrint));
+	//Validate list
+	int listCode = validateList(listToPrint);
 
+	if (listCode == 0) { // Check if validation was success
+		printf(" >> Validation: Success\n");
+	}
+	else {
+		struct node* current = listToPrint->head; // if failed, go to where list failed
+		int commandNum = 0;
+		while (commandNum < listCode) {
+			current = current->next;
+			commandNum++;
+		}
+		if (current->command == NULL) { // if command is null, dont try to print it
+			printf(" >> Validation: A Command was NULL\n");
+		}
+		else {
+			char currentCommand[100] = "";
+			strcpy(currentCommand, current->command);
+			int length = strlen(currentCommand);
+			if (length > 0 && currentCommand[length - 1] == '\n') {
+				currentCommand[length - 1] = '\0';
+			}
+			printf(" >> Validation: Failure at command \"%s\"\n", currentCommand); // print which command failed in list
+		}
+	}
 }
 
 unsigned char* hashNode(struct node* node) {
@@ -106,10 +130,11 @@ unsigned char* hashNode(struct node* node) {
 int validateList(struct linkedList* list) {
 	//if (list->size < 1) { // If there are no items in list
 	//	printf("List Too Small"); // DEBUG
-	//	return 1; // Validation success
+	//	return 0; // Validation success
 	//}
 
 	struct node* current = list->head;
+	int commandNum = 1;
 
 	//printf(&current); // DEBUG
 	//printf(&next); // DEBUG
@@ -135,7 +160,7 @@ int validateList(struct linkedList* list) {
 				if (current->hash[i] != hashed[i]) { // If current hash does not match what it should be
 					//printf("No match"); // DEBUG
 					free(hashed);
-					return 0; // Validation failure
+					return commandNum; // Validation failure
 				}
 			}
 		}
@@ -147,9 +172,10 @@ int validateList(struct linkedList* list) {
 		
 		free(hashed);
 		current = current->next; // Move along the list
+		commandNum++;
 	}
 
 	//printf("Complete"); // DEBUG
-	return 1; // Only reached if there are no failed hashes
+	return 0; // Only reached if there are no failed hashes
 
 }
