@@ -20,6 +20,6 @@ void addItem(struct linkedList*, char*);
 
 void printList(struct linkedList*); 
 
-unsigned char* hashNode(struct node*);
+//unsigned char* hashNode(struct node*);
 
 int validateList(struct linkedList*);
